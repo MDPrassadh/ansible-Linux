@@ -1,0 +1,10 @@
+- name: Ping all hosts
+  hosts: all #  This playbook will run the ping module on all hosts defined in the inventory
+  gather_facts: yes # We don't need to gather facts for this simple task
+  tasks: # This task will ping all the hosts in the inventory to check connectivity
+    - name: Ping the hosts
+      ansible.builtin.ping: # Using the ping module to check connectivity
+      register: ping_result # Registering the result of the ping task to a variable for later use
+    - name: Display ping results
+      debug: # Using the debug module to display the results of the ping task
+        var: ping_result # Displaying the variable that contains the ping results 
