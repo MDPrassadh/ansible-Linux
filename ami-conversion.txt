@@ -1,0 +1,79 @@
+Step‑by‑Step Conversion
+1. Launch the instance
+Use the AWS console (you already have the EC2 launch tab open).
+
+Select ami-0220d79f3f480ecf5 (Redhat‑9‑DevOps‑Practice).
+
+Launch with default settings (password login will be required initially).
+
+2. Log in with password
+Connect to the instance using SSH:
+
+bash
+ssh ec2-user@<public-ip>
+Enter the password provided by the AMI creator (community AMIs usually document this in their description).
+
+3. Add your public key
+On your local machine, copy your public key:
+
+bash
+cat ~/.ssh/id_ed25519.pub
+On the EC2 instance, create the .ssh directory if it doesn’t exist:
+
+bash
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+Edit the authorized_keys file:
+
+bash
+vi ~/.ssh/authorized_keys
+Paste your public key into it.
+
+Set permissions:
+
+bash
+chmod 600 ~/.ssh/authorized_keys
+
+
+Disable FIPS Mode (so Ed25519 works)
+Check current FIPS status
+
+bash
+cat /proc/sys/crypto/fips_enabled
+If it prints 1, FIPS is enabled.
+
+Disable FIPS mode
+
+bash
+sudo fips-mode-setup --disable
+sudo reboot
+After reboot, FIPS will be off.
+
+Verify
+
+bash
+cat /proc/sys/crypto/fips_enabled
+Now it should print 0.
+
+🔑 Retry GitHub access
+Once FIPS is disabled:
+
+bash
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_ed25519
+ssh -T git@github.com
+Expected output:
+
+Code
+Hi MDPrassadh! You've successfully authenticated...
+Then clone again:
+
+bash
+git clone git@github.com:MDPrassadh/Ansible-Linux.git
+✅ Summary:
+
+FIPS mode is the reason Ed25519 keys are blocked.
+
+If you don’t want to generate RSA keys, you must disable FIPS mode.
+
+After disabling, your existing Ed25519 key will work fine with GitHub.
