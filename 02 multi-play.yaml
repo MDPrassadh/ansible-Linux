@@ -4,4 +4,4 @@
   tasks:
     - name: Display a message for all hosts
       debug:
-        msg: "This is a multi-playbook example. Host: {{ all }}" 
+        msg: "This is a multi-playbook example."
