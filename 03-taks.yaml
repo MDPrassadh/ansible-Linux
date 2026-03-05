@@ -7,7 +7,7 @@
         msg: "This is Task-1 of PLAY-1"
 # PLAY-01
 - name: PLAY-2
-  hosts : all
+  hosts : db
   tasks:
     - name: PLAY-2 Task-1 
       debug:
