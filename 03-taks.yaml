@@ -1,0 +1,6 @@
+- name: PLAY-1
+  hosts : all
+  tasks:
+    - name: PLAY-1 Task-1 
+      ansible.builtin.debug:
+       
