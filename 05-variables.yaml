@@ -1,6 +1,6 @@
 - name: Variables to print 
   hosts: web 
-  vars:
+  vars:  # Define variables at the all play levels use any tasks of this variables
     COURSE: "DEVOPS with AWS"
     DURATION: "3 months"
     TRAINER: "SKR"
