@@ -1,10 +1,10 @@
 - name: Print course details using variable files
   hosts: web
   
-  vars:  # Define variables at the all play levels use any tasks of this variables
-    COURSE: "DEVOPS with AWS FROM play level"
-    DURATION: "3 months FROM play level"
-    TRAINER: "SKR FROM play level"
+  # vars:  # Define variables at the all play levels use any tasks of this variables
+  #   COURSE: "DEVOPS with AWS FROM play level"
+  #   DURATION: "3 months FROM play level"
+  #   TRAINER: "SKR FROM play level"
 
   # vars_files:
   # - vars.yaml
@@ -39,4 +39,5 @@
  # 2 task level 
  # 3 vars_files seperate file variables define 
  # 4 prompt when i apply........... yaml file it will ask prompt to print 
- # 5 
+ # 5 play level 
+ # 6 
