@@ -6,6 +6,11 @@
     DURATION: "3 months FROM play level"
     TRAINER: "SKR FROM play level"
 
+  vars_files:
+  - vars.yaml
+
+  
+
   vars_prompt:  # Prompt the user for input when the playbook runs
     - name: "COURSE"   # Variable name to store the input
       prompt: "Enter the course name FROM PROMPT"  # Message shown to the user
@@ -23,7 +28,7 @@
     - name: Print course details from variable file
       vars:  # Define variables at the all task levels use any tasks of this variables
           # 1 cli empty
-          # COURSE: "DEVOPS with AWS FROM task level"  # 2 
+          #COURSE: "DEVOPS with AWS FROM task level"  # 2 
           DURATION: "3 months FROM task level"
           TRAINER: "SKR FROM task level"
       ansible.builtin.debug:
