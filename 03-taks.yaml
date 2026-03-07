@@ -1,6 +1,6 @@
 # PLAY-01
 - name: PLAY-1
-  hosts : all
+  hosts : servers
   tasks:
     - name: PLAY-1 Task-1 
       debug:
