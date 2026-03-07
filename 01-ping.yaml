@@ -1,5 +1,6 @@
 - name: Ping all hosts
-  hosts: servers                # Runs on all hosts in inventory
+  hosts: local 
+  connection: local                # Runs on all hosts in inventory
   gather_facts: no          # Better to disable facts here (ping doesn’t need them)
   tasks:
     - name: Ping the hosts
