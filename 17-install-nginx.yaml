@@ -12,6 +12,17 @@
       state: present
     when: ansible_os_family == "RedHat"
 
+  - name: Start and enable nginx service
+    ansible.builtin.service:
+      name: nginx
+      state: started
+      enabled: yes
+
+  - name: Create a simple index.html
+    ansible.builtin.copy:
+      dest: /usr/share/nginx/html/index.html
+      content: "<html><body><h1>Welcome to nginx from RHEL! MDP </h1></body></html>"
+
   - name: install nginx if Debian
     ansible.builtin.apt:
       name: nginx
