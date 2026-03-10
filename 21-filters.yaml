@@ -53,3 +53,8 @@
         - { key: "trainer", value: "tilak" }
     ansible.builtin.debug:
       msg: "{{ course_list | items2dict }}"
+  - name: check ip address valid or not..?
+    vars:
+        myip: "192.168.255.255" 
+    ansible.builtin.debug:
+      msg: "{{ myip | ansible.utils.ipv4 }}"
