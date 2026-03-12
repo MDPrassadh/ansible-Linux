@@ -60,6 +60,76 @@
       loop: "{{ r53_result.results | map(attribute='ansible_facts') | list }}"
 
 
+
+  #     - name: create ec2 and r53
+  # hosts: localhost
+  # connection: local
+  # vars:
+  #   subnet_id: subnet-0648e016f60665d39
+  #   sg_id: sg-02a5e0c53ec4cd644
+  #   ami_id: ami-0ad50334604831820
+  #   region: us-east-1
+  #   zone: jioairlines.online
+  #   instances:
+  #     - mysql
+  #     - backend
+  #     - frontend
+
+  # tasks:
+  #   - name: create ec2 instance
+  #     amazon.aws.ec2_instance:
+  #       name: "{{ item }}"
+  #       vpc_subnet_id: "{{ subnet_id }}"
+  #       instance_type: t3.micro
+  #       security_group: "{{ sg_id }}"
+  #       image_id: "{{ ami_id }}"
+  #       key_name: ansible
+  #       region: "{{ region }}"
+  #     loop: "{{ instances }}"
+  #     register: ec2_instances
+
+  #   - name: print ec2 output
+  #     ansible.builtin.debug:
+  #       var: ec2_instances
+
+  #   - name: create r53 records
+  #     amazon.aws.route53:
+  #       state: present
+  #       zone: "{{ zone }}"
+  #       record: "{{ item.item }}.{{ zone }}"
+  #       type: A
+  #       ttl: 1
+  #       value: "{{ item.instances[0].private_ip_address }}"
+  #       wait: true
+  #     loop: "{{ ec2_instances.results }}"
+  #     register: r53_result
+
+  #   - name: create r53 public record for frontend
+  #     amazon.aws.route53:
+  #       state: present
+  #       zone: "{{ zone }}"
+  #       record: "{{ zone }}"   # jioairlines.online
+  #       type: A
+  #       ttl: 1
+  #       value: "{{ item.instances[0].public_ip_address }}"
+  #       wait: true
+  #       overwrite: true
+  #     loop: "{{ ec2_instances.results }}"
+  #     when: item.item == "frontend"
+
+  #   # Step 1: Inspect the raw structure
+  #   - name: inspect r53_result
+  #     ansible.builtin.debug:
+  #       var: r53_result
+
+  #   # Step 2: Print each loop result safely
+  #   - name: print r53 output summary
+  #     ansible.builtin.debug:
+  #       msg: "{{ item }}"
+  #     loop: "{{ r53_result.results }}"
+
+
+
     # - name: print r53 output
     #   ansible.builtin.debug:
     #     msg: "{{ item.record }} -> {{ item.record_values }}"
