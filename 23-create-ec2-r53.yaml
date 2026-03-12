@@ -54,10 +54,16 @@
       loop: "{{ ec2_instances.results }}"
       when: item.item == "frontend"
 
+    # - name: print r53 output
+    #   ansible.builtin.debug:
+    #     msg: "{{ item.record }} -> {{ item.record_values }}"
+    #   loop: "{{ r53_result.results }}"
+
     - name: print r53 output
       ansible.builtin.debug:
         msg: "{{ item.record }} -> {{ item.record_values }}"
       loop: "{{ r53_result.results }}"
+
 
     # - name: print r53 output
     #   ansible.builtin.debug:
