@@ -2,9 +2,6 @@
   hosts: localhost
   connection: local
   vars:
-    subnet_id: subnet-0648e016f60665d39
-    sg_id: sg-02a5e0c53ec4cd644
-    ami_id: ami-0ad50334604831820
     region: us-east-1
     zone: jioairlines.online
     instances:
@@ -14,7 +11,7 @@
     desired_state: stopped   # change to 'terminated' if you want to delete
 
   tasks:
-    - name: manage ec2 instance state
+    - name: change ec2 instance state
       amazon.aws.ec2_instance:
         name: "{{ item }}"
         region: "{{ region }}"
@@ -25,3 +22,20 @@
     - name: print ec2 state change
       ansible.builtin.debug:
         var: ec2_state
+
+    - name: cleanup r53 records when terminated
+      amazon.aws.route53:
+        state: absent
+        zone: "{{ zone }}"
+        record: "{{ item }}.{{ zone }}"
+        type: A
+      loop: "{{ instances }}"
+      when: desired_state == "terminated"
+
+    - name: cleanup frontend root record when terminated
+      amazon.aws.route53:
+        state: absent
+        zone: "{{ zone }}"
+        record: "{{ zone }}"
+        type: A
+      when: desired_state == "terminated"
