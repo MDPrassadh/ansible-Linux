@@ -3,9 +3,6 @@
   connection: local
 
   vars:
-    subnet_id: subnet-0648e016f60665d39
-    sg_id: sg-02a5e0c53ec4cd644
-    ami_id: ami-0ad50334604831820
     region: us-east-1
     zone: jioairlines.online
 
@@ -35,7 +32,8 @@
 
     - name: terminate ec2 instances
       amazon.aws.ec2_instance:
-        name: "{{ item }}"
-        region: "{{ region }}"
         state: absent
+        region: "{{ region }}"
+        filters:
+          "tag:Name": "{{ item }}"
       loop: "{{ instances }}"
