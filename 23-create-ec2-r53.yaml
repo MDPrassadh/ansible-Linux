@@ -29,11 +29,11 @@
       ansible.builtin.debug:
         msg: "{{ ec2_instances }}"
 
-    - name: create r53 records
+    - name: create r53 and pvt records
       amazon.aws.route53:
         state: present
         zone: "{{ zone }}"
-        record: "{{ item.item }}.{{ zone }}"
+        record: "{{ item.item }}.{{ zone }}" # mysql.jioairlines.online
         type: A
         ttl: 60
         value: "{{ item.instances[0].private_ip_address }}"
